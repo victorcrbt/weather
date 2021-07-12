@@ -15,6 +15,7 @@
     "skipLibCheck": false,
     "baseUrl": "src",
     "paths": {
+      "@assets/*": ["./assets/*"],
       "@components/*": ["./components/*"],
       "@configs/*": ["./configs/*"],
       "@helpers/*": ["./helpers/*"],
