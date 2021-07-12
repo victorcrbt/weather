@@ -1,12 +1,10 @@
 import React from 'react';
 import { SafeAreaView } from 'react-native';
 
-import { HelloWorld } from '@components/HelloWorld';
+import { Routes } from './routes';
 
 const App = () => (
-  <SafeAreaView>
-    <HelloWorld />
-  </SafeAreaView>
+  <Routes />
 );
 
 export default App;
