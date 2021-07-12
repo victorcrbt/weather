@@ -20,7 +20,9 @@ module.exports = {
     '@typescript-eslint',
   ],
   rules: {
+    '@typescript-eslint/no-use-before-define': ['error'],
     '@typescript-eslint/no-unused-vars': 'error',
+    'no-use-before-define': 'off',
     'no-unused-vars': 'off',
     'react/jsx-filename-extension': ['error', { extensions: ['.tsx'] }],
     'import/prefer-default-export': 'off',
