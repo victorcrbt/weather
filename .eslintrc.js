@@ -23,6 +23,14 @@ module.exports = {
     'react/jsx-filename-extension': ['error', { extensions: ['.tsx'] }],
     'import/prefer-default-export': 'off',
     'import/no-unresolved': 'error',
+    'import/extensions': ['error', {
+      ts: 'never',
+      tsx: 'never',
+      js: 'never',
+      jsx: 'never',
+      json: 'always',
+      svg: 'always',
+    }],
   },
   settings: {
     'import/parsers': {
