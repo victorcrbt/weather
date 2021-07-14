@@ -12,6 +12,10 @@ import { api } from '@services/api';
 // Helpers
 import { getWeatherIcon } from '@helpers/get-weather-icon';
 
+import type { Location } from './types/Location';
+import type { CurrentDay } from './types/CurrentDay';
+import type { NextDay } from './types/NextDay';
+
 import { WeatherCard } from './components/WeatherCard';
 
 import {
@@ -35,9 +39,9 @@ const styles = StyleSheet.create({
 });
 
 export const MainScreen = () => {
-  const [location, setLocation] = useState<any>(null);
-  const [current, setCurrent] = useState<any>(null);
-  const [nextDays, setNextDays] = useState<any>([]);
+  const [location, setLocation] = useState<Location | null>(null);
+  const [current, setCurrent] = useState<CurrentDay | null>(null);
+  const [nextDays, setNextDays] = useState<NextDay[]>([]);
 
   useEffect(() => {
     Geolocation.getCurrentPosition(
