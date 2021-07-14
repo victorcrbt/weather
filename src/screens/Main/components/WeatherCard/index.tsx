@@ -1,4 +1,8 @@
 import React from 'react';
+// eslint-disable-next-line
+import { format } from 'date-fns';
+// eslint-disable-next-line
+import { ptBR } from 'date-fns/locale';
 
 import { getWeatherIcon } from '@helpers/get-weather-icon';
 import SunnyWeather from '../../../../assets/weather-rain.svg';
@@ -17,15 +21,24 @@ import {
 
 interface Props {
   title: string;
+  timestamp: number;
   weatherCode: number;
+  minimumTemperature: number;
+  maximumTemperature: number;
 }
 
-export const WeatherCard: React.FC<Props> = ({ title, weatherCode }) => {
+export const WeatherCard: React.FC<Props> = ({
+  title,
+  timestamp,
+  weatherCode,
+  minimumTemperature,
+  maximumTemperature,
+}) => {
   const Icon = getWeatherIcon({ code: weatherCode });
 
   return (
     <Container>
-      <CardTitle>{title}</CardTitle>
+      <CardTitle>{format(timestamp * 1000, 'EEEEEE', { locale: ptBR })}</CardTitle>
 
       <IconContainer>
         <Icon width={48} height={48} />
@@ -34,12 +47,12 @@ export const WeatherCard: React.FC<Props> = ({ title, weatherCode }) => {
       <TemperaturesContainer>
         <Row showSeparator>
           <TemperatureLabel>min</TemperatureLabel>
-          <TemperatureValue>8°</TemperatureValue>
+          <TemperatureValue>{`${Math.round(minimumTemperature)}°`}</TemperatureValue>
         </Row>
 
         <Row>
           <TemperatureLabel>max</TemperatureLabel>
-          <TemperatureValue>5°</TemperatureValue>
+          <TemperatureValue>{`${Math.round(maximumTemperature)}°`}</TemperatureValue>
         </Row>
       </TemperaturesContainer>
     </Container>

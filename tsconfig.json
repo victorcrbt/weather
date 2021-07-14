@@ -20,6 +20,7 @@
       "@configs/*": ["./configs/*"],
       "@helpers/*": ["./helpers/*"],
       "@screens/*": ["./screens/*"],
+      "@services/*": ["./services/*"],
       "@store/*": ["./store/*"],
     }
   },
