@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { FlatList } from 'react-native';
 import LinearGradient, { LinearGradientProps } from 'react-native-linear-gradient';
 
 export const Container = styled(LinearGradient).attrs<typeof LinearGradient, LinearGradientProps>({
@@ -11,38 +12,12 @@ export const Container = styled(LinearGradient).attrs<typeof LinearGradient, Lin
   justify-content: space-between;
 `;
 
-export const CurrentWeatherContainer = styled.View``;
-
-export const WeatherIconContainer = styled.View`
-  margin-top: 32px;
-
-  flex-direction: row;
-  justify-content: center;
-`;
-
-const BaseText = styled.Text`
-  font-weight: bold;
-  text-align: center;
-  color: #444;
-`;
-
-export const TemperatureText = styled(BaseText)`
-  font-size: 64px;
-`;
-
-export const LocationText = styled(BaseText)`
-  font-size: 24px;
-
-`;
-
-export const CountryText = styled(BaseText)`
-  font-size: 18px;
-`;
-
-export const WeatherCardsContainer = styled.ScrollView.attrs({ horizontal: true })`
+export const NextDaysWeather = (styled.FlatList.attrs({
+  horizontal: true,
+  contentContainerStyle: {
+    alignItems: 'flex-end',
+  },
+})`
   margin-bottom: 32px;
-  padding: 0 4px;
-  
-  
-  flex-direction: row;
-`;
+  padding: 0 8px;
+` as unknown) as typeof FlatList;

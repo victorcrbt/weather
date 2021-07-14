@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { ListRenderItemInfo } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
-import { StyleSheet, View } from 'react-native';
 import Geocoder from 'react-native-geocoding';
 
 // Configs
@@ -9,34 +9,16 @@ import { GOOGLE_MAPS_API_KEY } from '@configs/api-keys';
 // Services
 import { api } from '@services/api';
 
-// Helpers
-import { getWeatherIcon } from '@helpers/get-weather-icon';
-
 import type { Location } from './types/Location';
 import type { CurrentDay } from './types/CurrentDay';
 import type { NextDay } from './types/NextDay';
 
+import { CurrentWeather } from './components/CurrentWeather';
 import { WeatherCard } from './components/WeatherCard';
 
-import {
-  Container,
-  CurrentWeatherContainer,
-  WeatherIconContainer,
-  TemperatureText,
-  LocationText,
-  CountryText,
-  WeatherCardsContainer,
-} from './styles';
+import { Container, NextDaysWeather } from './styles';
 
 Geocoder.init(GOOGLE_MAPS_API_KEY);
-
-const styles = StyleSheet.create({
-  textShadow: {
-    textShadowColor: 'rgba(0, 0, 0, 0.4)',
-    textShadowOffset: { width: 0, height: 3 },
-    textShadowRadius: 10,
-  },
-});
 
 export const MainScreen = () => {
   const [location, setLocation] = useState<Location | null>(null);
@@ -68,8 +50,6 @@ export const MainScreen = () => {
           },
         });
 
-        console.log(response.data);
-
         setCurrent(response.data.current);
         setNextDays(response.data.daily);
       },
@@ -77,39 +57,27 @@ export const MainScreen = () => {
     );
   }, []);
 
-  const CurrentWeatherIcon = getWeatherIcon({
-    code: current && current.weather[0].id ? current.weather[0].id : 800,
-  });
+  const renderWeatherCard = useCallback(
+    ({ item }: ListRenderItemInfo<NextDay>) => (
+      <WeatherCard
+        timestamp={item.dt}
+        weatherCode={item.weather[0].id}
+        minimumTemperature={item.temp.min}
+        maximumTemperature={item.temp.max}
+      />
+    ),
+    [],
+  );
 
   return (
     <Container>
-      {current && (
-        <CurrentWeatherContainer>
-          <WeatherIconContainer>
-            <CurrentWeatherIcon width={96} height={96} />
-          </WeatherIconContainer>
+      {current && location && <CurrentWeather weather={current} location={location} />}
 
-          <TemperatureText style={styles.textShadow}>
-            {`${Math.round(current.temp)}°`}
-          </TemperatureText>
-
-          {location && (
-          <LocationText>
-            {location.city}
-            ,
-            {' '}
-            {location.state}
-          </LocationText>
-          )}
-          {location && <CountryText>{location.country}</CountryText>}
-        </CurrentWeatherContainer>
-      )}
-
-      <View>
-        <WeatherCardsContainer>
-          {nextDays.map((day) => <WeatherCard key={day.dt} timestamp={day.dt} title="oi" weatherCode={day.weather[0].id} minimumTemperature={day.temp.min} maximumTemperature={day.temp.max} />)}
-        </WeatherCardsContainer>
-      </View>
+      <NextDaysWeather
+        data={nextDays}
+        keyExtractor={(item) => String(item.dt)}
+        renderItem={renderWeatherCard}
+      />
     </Container>
   );
 };
