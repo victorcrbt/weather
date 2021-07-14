@@ -3,14 +3,14 @@ import Geolocation from 'react-native-geolocation-service';
 import { StyleSheet, View } from 'react-native';
 import Geocoder from 'react-native-geocoding';
 
+// Configs
+import { GOOGLE_MAPS_API_KEY } from '@configs/api-keys';
+
 // Services
 import { api } from '@services/api';
 
 // Helpers
 import { getWeatherIcon } from '@helpers/get-weather-icon';
-
-// Assets
-import StormyWeather from '../../assets/weather-stormy.svg';
 
 import { WeatherCard } from './components/WeatherCard';
 
@@ -24,7 +24,7 @@ import {
   WeatherCardsContainer,
 } from './styles';
 
-Geocoder.init('AIzaSyAh-OsTgXlx3RdpcCw2DEk2AkcoUpoKeZs');
+Geocoder.init(GOOGLE_MAPS_API_KEY);
 
 const styles = StyleSheet.create({
   textShadow: {
