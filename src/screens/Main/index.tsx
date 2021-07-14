@@ -103,7 +103,7 @@ export const MainScreen = () => {
 
       <View>
         <WeatherCardsContainer>
-          {nextDays.map((day) => <WeatherCard timestamp={day.dt} title="oi" weatherCode={day.weather[0].id} minimumTemperature={day.temp.min} maximumTemperature={day.temp.max} />)}
+          {nextDays.map((day) => <WeatherCard key={day.dt} timestamp={day.dt} title="oi" weatherCode={day.weather[0].id} minimumTemperature={day.temp.min} maximumTemperature={day.temp.max} />)}
         </WeatherCardsContainer>
       </View>
     </Container>
