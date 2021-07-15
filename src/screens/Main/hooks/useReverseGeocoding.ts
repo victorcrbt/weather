@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import Geocoder from 'react-native-geocoding';
+import { showMessage } from 'react-native-flash-message';
 
 // Configs
 import { GOOGLE_MAPS_API_KEY } from '@configs/api-keys';
@@ -14,7 +15,6 @@ Geocoder.init(GOOGLE_MAPS_API_KEY);
 
 // TODO cache location information
 export function useReverseGeocoding({ longitude, latitude }: Props) {
-  // TODO add loading state
   const [loading, setLoading] = useState(false);
   const [location, setLocation] = useState<Location | null>(null);
 
@@ -34,8 +34,10 @@ export function useReverseGeocoding({ longitude, latitude }: Props) {
         country: currentCity[5].long_name,
       });
     } catch (error) {
-      // TODO handle error
-      console.log(error);
+      showMessage({
+        type: 'warning',
+        message: 'Falha ao recuperar localização atual.',
+      });
     } finally {
       setLoading(false);
     }
@@ -45,5 +47,5 @@ export function useReverseGeocoding({ longitude, latitude }: Props) {
     getCurrentLocation();
   }, [getCurrentLocation]);
 
-  return { loadingLocation: loading, location };
+  return { loadingLocation: loading, location, getCurrentLocation };
 }

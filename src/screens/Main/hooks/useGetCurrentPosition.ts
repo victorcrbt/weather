@@ -1,22 +1,31 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Geolocation from 'react-native-geolocation-service';
+import { showMessage } from 'react-native-flash-message';
 
-export function useGetCurrentPosition(dependencies: any[] = []) {
+export function useGetCurrentPosition() {
   const [longitude, setLongitude] = useState<number | null>(null);
   const [latitude, setLatitude] = useState<number | null>(null);
 
-  useEffect(() => {
-    // TODO ask for location permission
+  const getCurrentPosition = useCallback(() => {
+    setLongitude(null);
+    setLatitude(null);
 
     Geolocation.getCurrentPosition(
-      (position) => {
+      position => {
         setLongitude(position.coords.longitude);
         setLatitude(position.coords.latitude);
       },
-      (error) => console.log(error), // TODO handle error
-
+      () =>
+        showMessage({
+          type: 'warning',
+          message: 'Falha ao recuperar posição atual.',
+        }),
     );
-  }, [dependencies]);
+  }, []);
 
-  return { longitude, latitude };
+  useEffect(() => {
+    getCurrentPosition();
+  }, [getCurrentPosition]);
+
+  return { longitude, latitude, getCurrentPosition };
 }
