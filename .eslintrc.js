@@ -13,6 +13,10 @@ module.exports = {
   },
   plugins: ['prettier', 'react', 'import', '@typescript-eslint'],
   rules: {
+    indent: 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'implicit-arrow-linebreak': 'off',
+    'no-return-assign': 'off',
     'prettier/prettier': 'error',
     'arrow-parens': ['warn', 'as-needed'],
     '@typescript-eslint/no-use-before-define': ['error'],
