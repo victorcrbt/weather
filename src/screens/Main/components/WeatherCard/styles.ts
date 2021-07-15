@@ -37,16 +37,16 @@ export const TemperaturesContainer = styled.View`
 export const Row = styled.View<RowProps>`
   padding: 4px 0;
 
-  
-
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-end;
 
-  ${(props) => props.showSeparator && css`
-    border-bottom-color: rgba(0, 0, 0, 0.05);
-    border-bottom-width: 1px;
-  `}
+  ${props =>
+    props.showSeparator &&
+    css`
+      border-bottom-color: rgba(0, 0, 0, 0.05);
+      border-bottom-width: 1px;
+    `}
 `;
 
 export const TemperatureLabel = styled(BaseText)`
@@ -55,5 +55,4 @@ export const TemperatureLabel = styled(BaseText)`
 
 export const TemperatureValue = styled(BaseText)`
   font-size: 24px;
-
 `;

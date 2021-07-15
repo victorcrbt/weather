@@ -15,36 +15,35 @@ Geocoder.init(GOOGLE_MAPS_API_KEY);
 // TODO cache location information
 export function useReverseGeocoding({ longitude, latitude }: Props) {
   // TODO add loading state
+  const [loading, setLoading] = useState(false);
   const [location, setLocation] = useState<Location | null>(null);
 
-  const getCurrentLocation = useCallback(
-    async () => {
-      try {
-        if (!latitude || !longitude) return;
+  const getCurrentLocation = useCallback(async () => {
+    setLoading(true);
 
-        const { results } = await Geocoder.from({ latitude, longitude });
+    try {
+      if (!latitude || !longitude) return;
 
-        const currentCity = results[0].address_components;
+      const { results } = await Geocoder.from({ latitude, longitude });
 
-        setLocation({
-          city: currentCity[3].long_name,
-          state: currentCity[4].short_name,
-          country: currentCity[5].long_name,
-        });
-      } catch (error) {
-        // TODO handle error
-        console.log(error);
-      }
-    },
-    [longitude, latitude],
-  );
+      const currentCity = results[0].address_components;
 
-  useEffect(
-    () => {
-      getCurrentLocation();
-    },
-    [getCurrentLocation],
-  );
+      setLocation({
+        city: currentCity[3].long_name,
+        state: currentCity[4].short_name,
+        country: currentCity[5].long_name,
+      });
+    } catch (error) {
+      // TODO handle error
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  }, [longitude, latitude]);
 
-  return location;
+  useEffect(() => {
+    getCurrentLocation();
+  }, [getCurrentLocation]);
+
+  return { loadingLocation: loading, location };
 }

@@ -30,9 +30,14 @@ export const TemperatureText = styled(BaseText)`
 
 export const LocationText = styled(BaseText)`
   font-size: 24px;
-
 `;
 
 export const CountryText = styled(BaseText)`
   font-size: 18px;
+`;
+
+export const LoadingContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
 `;
