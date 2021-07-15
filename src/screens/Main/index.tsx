@@ -1,5 +1,7 @@
-import React from 'react';
-import { ActivityIndicator } from 'react-native';
+import React, { useCallback } from 'react';
+
+import { RefreshButton } from '@components/Controls/RefreshButton';
+
 import { useGetCurrentPosition } from './hooks/useGetCurrentPosition';
 import { useReverseGeocoding } from './hooks/useReverseGeocoding';
 import { useGetWeather } from './hooks/useGetWeather';
@@ -7,26 +9,22 @@ import { useGetWeather } from './hooks/useGetWeather';
 import { CurrentWeather } from './components/CurrentWeather';
 import { NextDaysWeather } from './components/NextDaysWeather';
 
-import { Container, LoadingContainer } from './styles';
+import { Container } from './styles';
 
 export const MainScreen = () => {
-  const { longitude, latitude } = useGetCurrentPosition();
+  const { longitude, latitude, getCurrentPosition } = useGetCurrentPosition();
   const { loadingWeather, currentWeather, nextDaysWeather } = useGetWeather({
     longitude,
     latitude,
   });
-  const { loadingLocation, location } = useReverseGeocoding({
+  const { location } = useReverseGeocoding({
     longitude,
     latitude,
   });
 
-  if (loadingWeather && loadingLocation) {
-    return (
-      <LoadingContainer>
-        <ActivityIndicator size="large" color="#000" />
-      </LoadingContainer>
-    );
-  }
+  const handleRefresh = useCallback(async () => {
+    getCurrentPosition();
+  }, [getCurrentPosition]);
 
   return (
     <Container>
@@ -41,6 +39,8 @@ export const MainScreen = () => {
       )}
 
       <NextDaysWeather data={nextDaysWeather} loading={loadingWeather} />
+
+      <RefreshButton onPress={handleRefresh} />
     </Container>
   );
 };
