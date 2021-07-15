@@ -2,10 +2,7 @@ module.exports = {
   env: {
     es2021: true,
   },
-  extends: [
-    'plugin:react/recommended',
-    'airbnb',
-  ],
+  extends: ['plugin:react/recommended', 'airbnb'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
@@ -14,12 +11,10 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: [
-    'react',
-    'import',
-    '@typescript-eslint',
-  ],
+  plugins: ['prettier', 'react', 'import', '@typescript-eslint'],
   rules: {
+    'prettier/prettier': 'error',
+    'arrow-parens': ['warn', 'as-needed'],
     '@typescript-eslint/no-use-before-define': ['error'],
     '@typescript-eslint/no-unused-vars': 'error',
     camelcase: 'off',
@@ -29,14 +24,17 @@ module.exports = {
     'react/jsx-filename-extension': ['error', { extensions: ['.tsx'] }],
     'import/prefer-default-export': 'off',
     'import/no-unresolved': 'error',
-    'import/extensions': ['error', {
-      ts: 'never',
-      tsx: 'never',
-      js: 'never',
-      jsx: 'never',
-      json: 'always',
-      svg: 'always',
-    }],
+    'import/extensions': [
+      'error',
+      {
+        ts: 'never',
+        tsx: 'never',
+        js: 'never',
+        jsx: 'never',
+        json: 'always',
+        svg: 'always',
+      },
+    ],
   },
   settings: {
     'import/parsers': {
