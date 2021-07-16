@@ -17,7 +17,7 @@ export const MainScreen = () => {
     longitude,
     latitude,
   });
-  const { location } = useReverseGeocoding({
+  const { loadingLocation, location } = useReverseGeocoding({
     longitude,
     latitude,
   });
@@ -35,10 +35,13 @@ export const MainScreen = () => {
           weather={currentWeather}
           location={location}
           loading={loadingWeather}
+          loadingLocation={loadingLocation}
         />
       )}
 
-      <NextDaysWeather data={nextDaysWeather} loading={loadingWeather} />
+      {currentWeather && location && (
+        <NextDaysWeather data={nextDaysWeather} loading={loadingWeather} />
+      )}
 
       <RefreshButton onPress={handleRefresh} />
     </Container>

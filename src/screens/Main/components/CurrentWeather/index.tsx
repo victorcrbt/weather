@@ -23,12 +23,14 @@ interface Props {
   weather: CurrentDay;
   location: Location;
   loading: boolean;
+  loadingLocation: boolean;
 }
 
 export const CurrentWeather: React.FC<Props> = ({
   weather,
   location,
   loading,
+  loadingLocation,
 }) => {
   const weatherIcon = useMemo(() => {
     const Icon = getWeatherIcon({ code: weather.weather[0].id });
@@ -36,25 +38,39 @@ export const CurrentWeather: React.FC<Props> = ({
     return <Icon width={96} height={96} />;
   }, [weather]);
 
-  if (loading) {
-    return (
-      <LoadingContainer>
-        <ActivityIndicator size="large" color="#fff" />
-      </LoadingContainer>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <LoadingContainer>
+  //       <ActivityIndicator size="large" color="#fff" />
+  //     </LoadingContainer>
+  //   );
+  // }
 
   return (
     <Container>
-      <IconContainer>{weatherIcon}</IconContainer>
+      {loading ? (
+        <LoadingContainer>
+          <ActivityIndicator size="large" color="#fff" />
+        </LoadingContainer>
+      ) : (
+        <>
+          <IconContainer>{weatherIcon}</IconContainer>
 
-      <TemperatureText style={styles.textShadow}>
-        {formatTemperature({ temp: weather.temp })}
-      </TemperatureText>
+          <TemperatureText style={styles.textShadow}>
+            {formatTemperature({ temp: weather.temp })}
+          </TemperatureText>
+        </>
+      )}
 
-      <LocationText>{`${location.city}, ${location.state}`}</LocationText>
+      {loadingLocation && <ActivityIndicator size="large" color="#fff" />}
 
-      <CountryText>{location.country}</CountryText>
+      {location && !loadingLocation && (
+        <>
+          <LocationText>{`${location.city}, ${location.state}`}</LocationText>
+
+          <CountryText>{location.country}</CountryText>
+        </>
+      )}
     </Container>
   );
 };

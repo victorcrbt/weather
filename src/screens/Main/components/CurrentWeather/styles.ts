@@ -9,7 +9,9 @@ export const styles = StyleSheet.create({
   },
 });
 
-export const Container = styled.View``;
+export const Container = styled.View`
+  flex: 1;
+`;
 
 export const IconContainer = styled.View`
   margin-top: 32px;
@@ -37,6 +39,8 @@ export const CountryText = styled(BaseText)`
 `;
 
 export const LoadingContainer = styled.View`
+  max-height: 210px;
+
   flex: 1;
   justify-content: center;
   align-items: center;
