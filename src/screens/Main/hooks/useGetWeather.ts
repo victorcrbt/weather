@@ -69,7 +69,7 @@ export function useGetWeather({ longitude, latitude }: Props) {
       });
 
       setCurrentWeather(response.data.current);
-      setNextDaysWeather(response.data.daily.slice(0, -1));
+      setNextDaysWeather(response.data.daily.slice(1, -1));
     } catch (error) {
       showMessage({
         type: 'warning',
