@@ -17,7 +17,7 @@ export const MainScreen = () => {
     longitude,
     latitude,
   });
-  const { loadingLocation, location } = useReverseGeocoding({
+  const { location } = useReverseGeocoding({
     longitude,
     latitude,
   });
@@ -35,7 +35,7 @@ export const MainScreen = () => {
           weather={currentWeather}
           location={location}
           loading={loadingWeather}
-          loadingLocation={loadingLocation}
+          loadingLocation={loadingWeather}
         />
       )}
 
