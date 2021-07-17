@@ -52,8 +52,6 @@ export function useReverseGeocoding({ longitude, latitude }: Props) {
         country: currentCity[5].long_name,
       };
 
-      console.log(currentLocation);
-
       await saveDataOnStorage({ storedLocation: currentLocation });
 
       setLocation(currentLocation);
