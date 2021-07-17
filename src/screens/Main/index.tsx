@@ -27,11 +27,7 @@ export const MainScreen = () => {
   }, [getCurrentPosition]);
 
   return (
-    <Container
-      // weatherCode={(currentWeather && currentWeather.weather[0].id) || null}
-      weatherCode={200}>
-      {/* TODO add refresh button */}
-
+    <Container>
       {currentWeather && location && (
         <CurrentWeather
           weather={currentWeather}
@@ -45,7 +41,7 @@ export const MainScreen = () => {
         <NextDaysWeather data={nextDaysWeather} loading={loadingWeather} />
       )}
 
-      <RefreshButton onPress={handleRefresh} />
+      {!loadingWeather && <RefreshButton onPress={handleRefresh} />}
     </Container>
   );
 };
