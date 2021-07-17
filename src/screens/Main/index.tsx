@@ -28,19 +28,20 @@ export const MainScreen = () => {
 
   return (
     <Container>
-      {/* TODO add refresh button */}
-
       {currentWeather && location && (
         <CurrentWeather
           weather={currentWeather}
           location={location}
           loading={loadingWeather}
+          loadingLocation={loadingWeather}
         />
       )}
 
-      <NextDaysWeather data={nextDaysWeather} loading={loadingWeather} />
+      {currentWeather && location && (
+        <NextDaysWeather data={nextDaysWeather} loading={loadingWeather} />
+      )}
 
-      <RefreshButton onPress={handleRefresh} />
+      {!loadingWeather && <RefreshButton onPress={handleRefresh} />}
     </Container>
   );
 };
