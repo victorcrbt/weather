@@ -59,6 +59,7 @@ export function useGetWeather({ longitude, latitude }: Props) {
           lon: longitude,
           units: 'metric',
           lang: 'pt_br',
+          exclude: 'hourly,minutely,alerts',
         },
       });
 
