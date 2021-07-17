@@ -27,7 +27,9 @@ export const MainScreen = () => {
   }, [getCurrentPosition]);
 
   return (
-    <Container>
+    <Container
+      // weatherCode={(currentWeather && currentWeather.weather[0].id) || null}
+      weatherCode={200}>
       {/* TODO add refresh button */}
 
       {currentWeather && location && (

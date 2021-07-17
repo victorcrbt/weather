@@ -15,6 +15,7 @@ import {
   LoadingContainer,
   IconContainer,
   TemperatureText,
+  WeatherDescriptionText,
   LocationText,
   CountryText,
 } from './styles';
@@ -38,14 +39,6 @@ export const CurrentWeather: React.FC<Props> = ({
     return <Icon width={96} height={96} />;
   }, [weather]);
 
-  // if (loading) {
-  //   return (
-  //     <LoadingContainer>
-  //       <ActivityIndicator size="large" color="#fff" />
-  //     </LoadingContainer>
-  //   );
-  // }
-
   return (
     <Container>
       {loading ? (
@@ -59,6 +52,10 @@ export const CurrentWeather: React.FC<Props> = ({
           <TemperatureText style={styles.textShadow}>
             {formatTemperature({ temp: weather.temp })}
           </TemperatureText>
+
+          <WeatherDescriptionText>
+            {weather.weather[0].description}
+          </WeatherDescriptionText>
         </>
       )}
 

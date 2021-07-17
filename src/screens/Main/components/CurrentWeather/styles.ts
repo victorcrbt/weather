@@ -23,11 +23,16 @@ export const IconContainer = styled.View`
 const BaseText = styled.Text`
   font-weight: bold;
   text-align: center;
-  color: #444;
+  color: #333;
 `;
 
 export const TemperatureText = styled(BaseText)`
   font-size: 64px;
+`;
+
+export const WeatherDescriptionText = styled(BaseText)`
+  text-transform: uppercase;
+  color: #555;
 `;
 
 export const LocationText = styled(BaseText)`

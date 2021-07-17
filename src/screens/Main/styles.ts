@@ -1,17 +1,8 @@
 import styled from 'styled-components/native';
-import LinearGradient, {
-  LinearGradientProps,
-} from 'react-native-linear-gradient';
 
-export const Container = styled(LinearGradient).attrs<
-  typeof LinearGradient,
-  LinearGradientProps
->({
-  colors: ['#5192CE', '#5192CE'],
-  start: { x: 0.5, y: 0 },
-  end: { x: 0.5, y: 1 },
-})`
+export const Container = styled.View`
   flex: 1;
 
+  background: #c695ed;
   justify-content: space-between;
 `;
