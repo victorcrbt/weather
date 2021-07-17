@@ -14,7 +14,6 @@ interface Props {
 
 Geocoder.init(GOOGLE_MAPS_API_KEY);
 
-// TODO cache location information
 export function useReverseGeocoding({ longitude, latitude }: Props) {
   const [loading, setLoading] = useState(false);
   const [location, setLocation] = useState<Location | null>(null);
