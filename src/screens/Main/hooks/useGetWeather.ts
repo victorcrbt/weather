@@ -5,9 +5,6 @@ import { showMessage } from 'react-native-flash-message';
 import { api } from '@services/api';
 import { save, get } from '@services/local-storage';
 
-import type { CurrentDay } from '../types/CurrentDay';
-import type { NextDay } from '../types/NextDay';
-
 interface Props {
   longitude: number | null;
   latitude: number | null;
@@ -16,16 +13,19 @@ interface Props {
 export function useGetWeather({ longitude, latitude }: Props) {
   const [loading, setLoading] = useState(false);
   const [isUsingCachedData, setIsUsingCachedData] = useState(false);
-  const [currentWeather, setCurrentWeather] = useState<CurrentDay | null>(null);
-  const [nextDaysWeather, setNextDaysWeather] = useState<NextDay[]>([]);
+  const [currentWeather, setCurrentWeather] =
+    useState<MainScreen.CurrentDay | null>(null);
+  const [nextDaysWeather, setNextDaysWeather] = useState<MainScreen.NextDay[]>(
+    [],
+  );
 
   const saveDataOnStorage = useCallback(
     async ({
       current,
       nextDays,
     }: {
-      current: CurrentDay;
-      nextDays: NextDay[];
+      current: MainScreen.CurrentDay;
+      nextDays: MainScreen.NextDay[];
     }) => {
       await save({ key: 'weather', data: { current, nextDays } });
     },
@@ -35,9 +35,10 @@ export function useGetWeather({ longitude, latitude }: Props) {
   const retrieveDataFromStorage = useCallback(async () => {
     setIsUsingCachedData(true);
 
-    const data: { current: CurrentDay; nextDays: NextDay[] } | null = await get(
-      { key: 'weather' },
-    );
+    const data: {
+      current: MainScreen.CurrentDay;
+      nextDays: MainScreen.NextDay[];
+    } | null = await get({ key: 'weather' });
 
     if (data) {
       setCurrentWeather(data.current);

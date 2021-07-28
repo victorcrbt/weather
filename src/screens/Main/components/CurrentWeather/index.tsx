@@ -5,10 +5,6 @@ import { ActivityIndicator } from 'react-native';
 import { getWeatherIcon } from '@helpers/get-weather-icon';
 import { formatTemperature } from '@helpers/format-temperature';
 
-// Types
-import type { CurrentDay } from '../../types/CurrentDay';
-import type { Location } from '../../types/Location';
-
 import {
   styles,
   Container,
@@ -21,8 +17,8 @@ import {
 } from './styles';
 
 interface Props {
-  weather: CurrentDay;
-  location: Location;
+  weather: MainScreen.CurrentDay;
+  location: MainScreen.Location;
   loading: boolean;
   loadingLocation: boolean;
 }

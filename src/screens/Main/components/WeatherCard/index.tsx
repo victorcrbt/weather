@@ -35,7 +35,9 @@ export const WeatherCard: React.FC<Props> = ({
 
   return (
     <Container>
-      <CardTitle>{format(timestamp * 1000, 'EEEEEE', { locale: ptBR })}</CardTitle>
+      <CardTitle>
+        {format(timestamp * 1000, 'EEEEEE', { locale: ptBR })}
+      </CardTitle>
 
       <IconContainer>
         <Icon width={48} height={48} />
@@ -44,12 +46,16 @@ export const WeatherCard: React.FC<Props> = ({
       <TemperaturesContainer>
         <Row showSeparator>
           <TemperatureLabel>min</TemperatureLabel>
-          <TemperatureValue>{formatTemperature({ temp: minimumTemperature })}</TemperatureValue>
+          <TemperatureValue>
+            {formatTemperature({ temp: minimumTemperature })}
+          </TemperatureValue>
         </Row>
 
         <Row>
           <TemperatureLabel>max</TemperatureLabel>
-          <TemperatureValue>{formatTemperature({ temp: maximumTemperature })}</TemperatureValue>
+          <TemperatureValue>
+            {formatTemperature({ temp: maximumTemperature })}
+          </TemperatureValue>
         </Row>
       </TemperaturesContainer>
     </Container>

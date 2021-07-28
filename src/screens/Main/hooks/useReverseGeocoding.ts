@@ -5,7 +5,6 @@ import { showMessage } from 'react-native-flash-message';
 // Configs
 import { GOOGLE_MAPS_API_KEY } from '@configs/api-keys';
 import { save, get } from '@services/local-storage';
-import type { Location } from '../types/Location';
 
 interface Props {
   longitude: number | null;
@@ -16,17 +15,17 @@ Geocoder.init(GOOGLE_MAPS_API_KEY);
 
 export function useReverseGeocoding({ longitude, latitude }: Props) {
   const [loading, setLoading] = useState(false);
-  const [location, setLocation] = useState<Location | null>(null);
+  const [location, setLocation] = useState<MainScreen.Location | null>(null);
 
   const saveDataOnStorage = useCallback(
-    async ({ storedLocation }: { storedLocation: Location }) => {
+    async ({ storedLocation }: { storedLocation: MainScreen.Location }) => {
       await save({ key: 'location', data: { storedLocation } });
     },
     [],
   );
 
   const retrieveDataFromStorage = useCallback(async () => {
-    const data: { storedLocation: Location } | null = await get({
+    const data: { storedLocation: MainScreen.Location } | null = await get({
       key: 'location',
     });
 
