@@ -14,6 +14,7 @@ module.exports = {
   plugins: ['prettier', 'react', 'import', '@typescript-eslint'],
   rules: {
     indent: 'off',
+    'no-undef': 'off',
     'operator-linebreak': 'off',
     'react/jsx-props-no-spreading': 'off',
     'implicit-arrow-linebreak': 'off',
